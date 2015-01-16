@@ -4,24 +4,10 @@ block content
   .page-header
     h2
       i.fa.fa-phone(style='color: #f00')
-      | Twilio API
-
-  .btn-group.btn-group-justified
-    a.btn.btn-primary(href='http://twilio.github.io/twilio-node/', target='_blank')
-      i.fa.fa-check-square-o
-      | Twilio Node
-    a.btn.btn-primary(href='https://apigee.com/console/twilio', target='_blank')
-      i.fa.fa-laptop
-      | API Console
-    a.btn.btn-primary(href='https://www.twilio.com/docs/api/rest', target='_blank')
-      i.fa.fa-code-fork
-      | REST API
-
-  br
-
+      | Send A Message
   .row
     .col-sm-6
-      form(role='form', method='POST')
+      form(role='form', method='POST', enctype='multipart/form-data')
         input(type='hidden', name='_csrf', value=_csrf)
         .form-group
           label.control-label Number to text
@@ -29,6 +15,9 @@ block content
         .form-group
           label.control-label Message
           input.form-control(type='text', name='message')
+        .form-group
+          label.control-label Upload File
+          input.form-control(type='file', name='file')
         button.btn.btn-default(type='submit')
           i.fa.fa-location-arrow
           | Send
