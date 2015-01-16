@@ -25,7 +25,7 @@ exports.postTwilio = function(req, res, next) {
                 to: req.body.number,
                 from: '+13134861219',
                 body: req.body.message,
-                mediaUrl: "http://i.kinja-img.com/gawker-media/image/upload/s--hUWAg1eC--/wsgtilb9ibbxysybe3mu.png" // Change to local
+                mediaUrl: "http://104.131.110.177:3000/"+ gg.name// Change to local
             };
 
             twilio.sendMms(message, function(err, responseData) {
@@ -54,6 +54,7 @@ exports.postTwilio = function(req, res, next) {
 
 exports.fileDownload = function (req, res) {
     var fn = req.param('fileName');
-    //
+    //http://104.131.110.177:3000
+
     res.sendFile('/home/kevin/Programming/TwiGo/TwiGo/uploads/' + fn);
 };
