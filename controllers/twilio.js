@@ -119,5 +119,5 @@ var createMessage = function (number, body, image) {
 exports.fileDownload = function (req, res) {
     var fn = req.param('fileName');
     //http://104.131.110.177:3000
-    res.sendFile(path.resolve('uploads/') + fn);
+    res.sendFile(path.resolve('uploads/') + '/' + fn);
 };
