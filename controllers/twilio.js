@@ -10,10 +10,10 @@ var path = require('path');
 var cargo = async.cargo(function (tasks, callback) {
     for(var i=0; i<tasks.length; i++){
         twilio.sendMms(tasks[i], function(err, responseData) {
-            if (err) callback(err);
-            callback()
+            console.log(responseData);
         });
     }
+    callback()
 }, 10);
 
 
