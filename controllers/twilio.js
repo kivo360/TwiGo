@@ -9,7 +9,6 @@ var path = require('path');
 
 var cargo = async.cargo(function (tasks, callback) {
     for(var i=0; i<tasks.length; i++){
-        console.log(tasks[i]);
         twilio.sendMms(tasks[i], function(err, responseData) {
             if (err) callback(err);
             callback()
@@ -120,5 +119,5 @@ var createMessage = function (number, body, image) {
 exports.fileDownload = function (req, res) {
     var fn = req.param('fileName');
     //http://104.131.110.177:3000
-    res.sendFile(path.resolve('uploads/'+ fileList.name) + fn);
+    res.sendFile(path.resolve('uploads/') + fn);
 };
