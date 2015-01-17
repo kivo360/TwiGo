@@ -12,7 +12,6 @@ var cargo = async.cargo(function (tasks, callback) {
         console.log(tasks[i]);
         twilio.sendMms(tasks[i], function(err, responseData) {
             if (err) callback(err);
-            console.log(responseData);
             callback()
         });
     }
@@ -121,5 +120,5 @@ var createMessage = function (number, body, image) {
 exports.fileDownload = function (req, res) {
     var fn = req.param('fileName');
     //http://104.131.110.177:3000
-    res.sendFile('/home/kevin/Programming/TwiGo/TwiGo/uploads/' + fn);
+    res.sendFile(path.resolve('uploads/'+ fileList.name) + fn);
 };
