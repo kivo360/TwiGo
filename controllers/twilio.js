@@ -7,14 +7,22 @@ var fm = require('./file_manager');
 var async = require('async');
 var path = require('path');
 
+
+
 var cargo = async.cargo(function (tasks, callback) {
+
     for(var i=0; i<tasks.length; i++){
-        twilio.sendMms(tasks[i], function(err, responseData) {
-            console.log(responseData);
-        });
+
+        setTimeout(function () {
+            twilio.sendMms(tasks[i], function(err, responseData) {
+                console.log(err);
+            });
+        }, 1000);
+        if((i+1) === tasks.length){
+            callback()
+        }
     }
-    callback()
-}, 10);
+}, 2);
 
 
 
@@ -70,25 +78,18 @@ exports.postTwilio = function(req, res, next) {
         }else{
             message = createMessage(allnums[i], req.body.message, gg);
         }
-        cargo.push(message, function (err) {
-            if(err){
-                errorList.push({phone: allnums[i], error: err});
-            }else{
-                processList.push({phone: allnums[i]});
-            }
-            var el = errorList.length;
-            var pl = processList.length;
-            //console.log(processList);
-            //console.log(errorList);
-            if(allnums.length === el+ pl){
-                fm.delete();
-                req.flash('success', { msg: 'Messages were sent to list you presented with ' + el + ' errors and ' + pl + ' successes'});
-                res.redirect('/api/twilio');
-            }
-        });
-    }
 
-            //});
+        twilio.sendMms(message, function(err, responseData) {
+            console.log(err);
+            console.log(responseData);
+        });
+
+        if(i === allnums.length - 1){
+            req.flash('success', { msg: 'Messages were sent to list you presented us with.'});
+            res.redirect('/api/twilio');
+        }
+    }
+           //});
 
 
 
@@ -115,6 +116,8 @@ var createMessage = function (number, body, image) {
     }
 
 };
+
+
 
 exports.fileDownload = function (req, res) {
     var fn = req.param('fileName');
